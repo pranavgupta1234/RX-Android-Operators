@@ -8,6 +8,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".custom.CustomActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="pranav.apps.amazing.rxoperators.category" />
+            </intent-filter>
+        </activity>
+        <!--<activity android:name=".BaseActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="pranav.apps.amazing.rxoperators.category" />
+            </intent-filter>
+        </activity>-->
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
