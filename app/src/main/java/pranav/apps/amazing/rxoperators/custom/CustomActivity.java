@@ -20,6 +20,8 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Pranav Gupta on 1/14/2017.
  */
+/**How to play with the values passing through observables
+ * */
 
 public class CustomActivity extends BaseActivity {
     @Override
@@ -33,13 +35,20 @@ public class CustomActivity extends BaseActivity {
                 liftObservable().subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
-                        log("lift" + s);
+                        log("lift :" + s);
                     }
                 });
             }
         });
+        mRButton.setText("Compose");
+        mRButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tra
+            }
+        });
     }
-    //this function returns an observable
+    //this function returns an observable and used to modify values passing through observable
     private Observable<String> liftObservable() {
         Operator<String, String> myOperator = new Operator<String, String>() {
             @Override
@@ -76,6 +85,22 @@ public class CustomActivity extends BaseActivity {
          *  is logged.
          */
         return Observable.just(1, 2, 3).map(integer -> "1st Map " + integer).lift(myOperator).map(s -> "2nd Map " + s);
+    }
+
+    private Observable<String> composeObservable(){
+        Observable.Transformer<Integer,String> myTransformer = new Observable.Transformer<Integer, String>() {
+            @Override
+            public Observable<String> call(Observable<Integer> integerObservable) {
+                return integerObservable.map(integer -> "Map"+ integer)
+                        .doOnNext(new Action1<String>() {
+                            @Override
+                            public void call(String s) {
+                                log("This is doneOnNext"+s);
+                            }
+                        });
+            }
+        };
+        return Observable.just(1,2,3,).compose(myTransformer());
     }
 
 }
