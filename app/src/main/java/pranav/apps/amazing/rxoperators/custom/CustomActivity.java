@@ -20,8 +20,11 @@ import rx.schedulers.Schedulers;
 /**
  * Created by Pranav Gupta on 1/14/2017.
  */
-/**How to play with the values passing through observables
- * */
+
+/**
+ * How to play with the values passing through observables
+ *
+ */
 
 public class CustomActivity extends BaseActivity {
     @Override
@@ -44,7 +47,12 @@ public class CustomActivity extends BaseActivity {
         mRButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tra
+                composeObservable().subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String s) {
+                        log("compose"+s);
+                    }
+                });
             }
         });
     }
@@ -100,7 +108,13 @@ public class CustomActivity extends BaseActivity {
                         });
             }
         };
-        return Observable.just(1,2,3,).compose(myTransformer());
+        /**There are two log in this case firstly we originate a observable by just(1,2,3) then we apply compose operator
+         * (mostly used when we apply some transformation on observable as a whole while lift is used in case on operation on
+         * discrete emitted events so till now we log "This is doneOnNext(Map(x)) where x is 1,2,3 Remember doOnNext does not
+         * perforn any modification on observable so this observable composed by this composeObservable() method is returned
+         * back to call to observer inside subscribe method where we log compose : Map(x)
+         * */
+        return Observable.just(1,2,3).compose(myTransformer);
     }
 
 }
