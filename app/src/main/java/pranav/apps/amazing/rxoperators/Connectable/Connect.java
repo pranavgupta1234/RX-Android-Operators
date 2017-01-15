@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import pranav.apps.amazing.rxoperators.BaseActivity;
 import rx.Observable;
 import rx.Subscription;
+import rx.functions.Action1;
 import rx.observables.ConnectableObservable;
 import rx.schedulers.Schedulers;
 
@@ -21,7 +22,29 @@ public class Connect extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /**ConnectableObservable is one which emits items only #after observable is called with connect method
+         * one can see that nothing was printed on screen even when observable was subscribed
+         *
+         * This example also shows that how we can subscribe more than one observables to same observable and can start
+         * one after sone action is completed
+         * */
         ConnectableObservable<Long> connectableObservable = publishObservable();
+        Action1 action1 = o -> log("action1 :"+ o);
+        Action1 action2 = o -> {
+            log("action2 :"+o);
+            if((long)o==3){
+                connectableObservable.subscribe(action1);
+            }
+        };
+        connectableObservable.subscribe(action2);
+        mLButton.setText("START");
+        mLButton.setOnClickListener(view -> _subscription = connectableObservable.connect());
+        mRButton.setText("STOP N CLEAR");
+        mRButton.setOnClickListener(view -> {mResultView.setText("");
+                                            if(!_subscription.isUnsubscribed()){
+                                                _subscription.unsubscribe();
+                                            }
+        });
     }
 
     private ConnectableObservable<Long> publishObservable() {
