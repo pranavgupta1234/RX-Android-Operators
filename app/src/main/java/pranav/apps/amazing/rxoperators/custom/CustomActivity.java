@@ -108,6 +108,8 @@ public class CustomActivity extends BaseActivity {
                         });
             }
         };
+        //just operator is operated on observer while compose directly operates on observables
+
         /**There are two log in this case firstly we originate a observable by just(1,2,3) then we apply compose operator
          * (mostly used when we apply some transformation on observable as a whole while lift is used in case on operation on
          * discrete emitted events so till now we log "This is doneOnNext(Map(x)) where x is 1,2,3 Remember doOnNext does not
