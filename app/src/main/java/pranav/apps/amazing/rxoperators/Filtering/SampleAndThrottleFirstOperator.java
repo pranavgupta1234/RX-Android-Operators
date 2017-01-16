@@ -25,38 +25,67 @@ public class SampleAndThrottleFirstOperator extends BaseActivity {
         /** sample operator turns our observable into an observable which emits the most recent item emitted by the original observable
          * in a given time window
          * */
-        mLButton.setOnClickListener(view ->  createObserver().sample(1000, TimeUnit.MILLISECONDS).subscribe(new Action1<Integer>() {
+        /**For the case of sample we see that after setting up the observable as soon as we subscribe method inside create is called
+         * remember that time window for sample is of 1 sec so thread sleeps for 200 sec no item is emitted just after subscription
+         * at 201 ms 0 is emitted and then thread sleeps and so on and hence the last item it receives is at 800ms which is 3 and this
+         * is passed to the observer but remember one can also see in the app that the value are logged onto the screen only after
+         * (200/1000)*20 = 4 sec i.e that observer performs its action only after the method inside create has completed ie onCompleted
+         * method of observer is called
+         * */
+
+        mLButton.setOnClickListener(view ->{
+            if(subscription!=null){
+                subscription.unsubscribe();
+            }
+            subscription = createObserver().sample(1000, TimeUnit.MILLISECONDS).subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer integer) {
                 log("sample : "+ integer);
             }
-        }));
+        });});
         mRButton.setText("throttleFirst");
         /**Returns an Observable that emits only the first item emitted by the source
          * Observable during sequential time windows of a specified duration.
          * */
-        mRButton.setOnClickListener(view -> createObserver().throttleFirst(1000,TimeUnit.MILLISECONDS).subscribe(new Action1<Integer>() {
+        /**In the case of throttle with time window of 1000ms first items in 4 windows of 1 sec each over a time span of 4 sec
+         * as mentioned in the method inside create method the values are logged as 0,5,10,15 and are logged all at a same time after
+         * 4 sec have passes and observer's onCompleted method is called
+         * */
+
+        mRButton.setOnClickListener(view -> {
+            if(subscription!=null){
+                subscription.unsubscribe();
+            }
+            subscription = createObserver().throttleFirst(1000,TimeUnit.MILLISECONDS).subscribe(new Action1<Integer>() {
             @Override
             public void call(Integer integer) {
                 log("throttle first : "+ integer);
             }
-        }));
+        });});
     }
 
     private Observable<Integer> createObserver() {
         return Observable.create(new Observable.OnSubscribe<Integer>() {
             @Override
             public void call(Subscriber<? super Integer> subscriber) {
-                for(int i=0;i<20;i++){
-                    try{
+                for(int i=0;i<20;i++) {
+                    try {
                         Thread.sleep(200);
-                    }catch (InterruptedException e){
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                     subscriber.onNext(i);
                 }
-
+                subscriber.onCompleted();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(subscription!=null){
+            subscription.unsubscribe();
+        }
     }
 }
