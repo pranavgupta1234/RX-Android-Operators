@@ -27,10 +27,10 @@ public class SampleAndThrottleFirstOperator extends BaseActivity {
          * */
         /**For the case of sample we see that after setting up the observable as soon as we subscribe method inside create is called
          * remember that time window for sample is of 1 sec so thread sleeps for 200 sec no item is emitted just after subscription
-         * at 201 ms 0 is emitted and then thread sleeps and so on and hence the last item it receives is at 800ms which is 3 and this
+         * and after 200 ms 0 is emitted and then thread sleeps and so on and hence the last item it receives is at 800ms which is 3 and this
          * is passed to the observer but remember one can also see in the app that the value are logged onto the screen only after
-         * (200/1000)*20 = 4 sec i.e that observer performs its action only after the method inside create has completed ie onCompleted
-         * method of observer is called
+         * (200/1000)*20 = 4 sec i.e that observer performs its action only after the method inside create has completed so if we increase
+         * value from 20 to 40 inside loop then values will be logged after 8 sec
          * */
 
         mLButton.setOnClickListener(view ->{
