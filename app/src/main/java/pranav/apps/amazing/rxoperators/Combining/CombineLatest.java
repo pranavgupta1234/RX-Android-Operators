@@ -57,6 +57,7 @@ public class CombineLatest extends BaseActivity{
                     subscriber.onNext(i*index);
                     try{
                         Thread.sleep(1000);
+
                     }catch (InterruptedException e){
                         e.printStackTrace();
                     }
@@ -65,8 +66,17 @@ public class CombineLatest extends BaseActivity{
         }).subscribeOn(Schedulers.newThread());
     }
     /** Combines two source Observables by emitting an item that aggregates the latest values of each of the source Observables
-     *  each time an item is received from either of the source Observables, where this aggregation is defined by a specified function.
+     *  **each** time an item is received from **either** of the source Observables, where this aggregation is defined by a specified function.
      * called aggregate function
+     * */
+
+    /** Initially we see that left:1 right:2 and CombineLatest: 3 (sum of two)
+     * as soon as we called combineLatest() then two observers are instantiated and and as soon we subscribe then the function inside
+     * create is fired according to which subscriber's onNext method i.e basically firstly they go to function inside combine latest
+     * which sends the result to Action1. Now as combineLatest processes each time a new item is received from either observables so
+     * starting occurs from 1 and 2 simultaneously thread sleeps and as soon as it wakes upit emits 2 from observable 1 and as observer2
+     * has already 2 so combineLatest will combine 2 +2 = 4 and  and when thread wakes it will emit 4 from 2 while 1st already has 2
+     * so 2+4  is logged and so on
      * */
     private Observable<Integer> combineLatest(){
         return Observable.combineLatest(createObserver(1), createObserver(2), (integer, integer2) -> {
@@ -77,7 +87,7 @@ public class CombineLatest extends BaseActivity{
 
     List<Observable<Integer>> list = new ArrayList<>();
     /** Combines a list of source Observables by emitting an item that aggregates the latest values of each of the
-     * source Observables each time an item is received
+     *  source Observables each time an item is received
      *  from any of the source Observables, where this aggregation is defined by a specified function called aggregate function
      * */
     private Observable<Integer> combineListObservables() {
