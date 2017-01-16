@@ -78,6 +78,20 @@
                 <category android:name="pranav.apps.amazing.rxoperators.category" />
             </intent-filter>
         </activity>
+        <activity android:name=".Filtering.SampleAndThrottleFirstOperator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="pranav.apps.amazing.rxoperators.category" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Filtering.SkipAndTakeOperator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="pranav.apps.amazing.rxoperators.category" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
