@@ -1,14 +1,11 @@
 package pranav.apps.amazing.rxoperators;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import pranav.apps.amazing.rxoperators.custom.CustomActivity;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;

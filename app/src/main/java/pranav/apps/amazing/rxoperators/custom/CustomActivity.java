@@ -1,21 +1,14 @@
-package pranav.apps.amazing.rxoperators.custom;
+package pranav.apps.amazing.rxoperators.Custom;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import pranav.apps.amazing.rxoperators.BaseActivity;
 import rx.Observable;
 import rx.Observable.Operator;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.internal.operators.OperatorPublish;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Pranav Gupta on 1/14/2017.
