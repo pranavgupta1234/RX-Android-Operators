@@ -26,6 +26,9 @@ public class FirstOperator extends BaseActivity {
         });
     }
 
+    /**In case of just operator only it emits those items immediately and the first value > 1 is 2 so 2 in instantaneously logged
+     * after button click
+     * */
     private Observable<Integer> firstObserver() {
         return Observable.just(0, 1, 2, 3, 4, 5).first(i -> i > 1);
     }
