@@ -36,7 +36,7 @@ public class CombineLatest extends BaseActivity{
             }
         });});
         mRButton.setText("CombineLatest");
-        mLButton.setOnClickListener(view -> {
+        mRButton.setOnClickListener(view -> {
             mResultView.setText("");
             if(_subscription!=null){
                 _subscription.unsubscribe();
