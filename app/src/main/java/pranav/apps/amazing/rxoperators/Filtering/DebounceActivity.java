@@ -7,6 +7,7 @@ import pranav.apps.amazing.rxoperators.BaseActivity;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class DebounceActivity extends BaseActivity {
@@ -19,11 +20,28 @@ public class DebounceActivity extends BaseActivity {
         mRButton.setText("debounce");
         mRButton.setOnClickListener(e -> debounceObserver().subscribe(i -> log("debounce:" + i)));
     }
-    /**debounce operator emits an item from an observable only is a particular timespan has passed with emitting another item, so
-     * if an item in continuosly emitted
+    /**debounce operator drop the items which are emitted in a specified time window
      * */
     private Observable<Integer> debounceObserver() {
-        return Observable.just(1, 2, 3, 4, 5, 6, 7, 8, 9).debounce(integer -> {
+        return Observable.just(1, 2, 3, 4, 5, 6, 7, 8, 9).debounce(new Func1<Integer, Observable<Integer>>() {
+            @Override
+            public Observable<Integer> call(Integer integer) {
+                log(integer);
+                return Observable.create(new Observable.OnSubscribe<Integer>() {
+                    @Override
+                    public void call(Subscriber<? super Integer> subscriber) {
+                        if (integer % 2 == 0 && !subscriber.isUnsubscribed()) {
+                            log("complete:" + integer);
+                            subscriber.onCompleted();
+                        }
+                    }
+                });
+            }
+        }).observeOn(AndroidSchedulers.mainThread());
+
+
+
+        /*debounce(integer -> {
             log(integer);
             return Observable.create(new Observable.OnSubscribe<Integer>() {
                 @Override
@@ -34,8 +52,8 @@ public class DebounceActivity extends BaseActivity {
                     }
                 }
             });
-        })
-                .observeOn(AndroidSchedulers.mainThread());
+        })*/
+             //
     }
 
     private Observable<Integer> throttleWithTimeoutObserver() {
