@@ -9,7 +9,6 @@ import rx.schedulers.Schedulers;
 
 public class SubscribeOnAndObserverOnOperator extends BaseActivity {
 
-
     /**
      *This executes the Observable on a new thread, which emits results through onNext on the main UI thread.
      *i.e all observing work id done on a new thread which will not block our UI main thread and when onNext method

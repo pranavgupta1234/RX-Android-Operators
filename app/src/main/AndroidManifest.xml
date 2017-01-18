@@ -134,7 +134,28 @@
                 <category android:name="pranav.apps.amazing.rxoperators.category" />
             </intent-filter>
         </activity>
+        <activity android:name=".Transforming.GroupbyOperator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="pranav.apps.amazing.rxoperators.category" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Transforming.ScanOperator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="pranav.apps.amazing.rxoperators.category" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Utility.DelayOperator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="pranav.apps.amazing.rxoperators.category" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Transforming.MapAndCastOperator">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
