@@ -134,6 +134,34 @@
                 <category android:name="pranav.apps.amazing.rxoperators.category" />
             </intent-filter>
         </activity>
+        <activity android:name=".Utility.MeterializeOperator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="pranav.apps.amazing.rxoperators.category" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Utility.SubscribeOnAndObserverOnOperator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="pranav.apps.amazing.rxoperators.category" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Utility.TimeIntervalTimeStampOperator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="pranav.apps.amazing.rxoperators.category" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Utility.TimeoutOperator">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="pranav.apps.amazing.rxoperators.category" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
