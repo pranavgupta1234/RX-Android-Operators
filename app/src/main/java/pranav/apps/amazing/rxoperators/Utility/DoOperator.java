@@ -16,6 +16,10 @@ public class DoOperator extends BaseActivity {
         mLButton.setText("do");
         mLButton.setOnClickListener(e -> doOnEachObserver().subscribe(i -> log("do:" + i)));
         mRButton.setText("doOnError");
+        /**This is one way of creating an observer or subscriber in which we implement all the three methods but in above case we
+         * see that only onNext or Action1 is implemented can onErrorNotImplemented action if error occurs so use above style
+         * only when you are confirmed that no erroe will occur
+         * */
         mRButton.setOnClickListener(e -> doOnErrorObserver().subscribe(new Subscriber<Integer>() {
             @Override
             public void onCompleted() {
@@ -102,6 +106,7 @@ public class DoOperator extends BaseActivity {
                     }
                 })
                 //this is called when either onCompleted or onError is called i.e after completion of work
+                //it is called **after** onCompleted or onError method of observer
                 .finallyDo(new Action0() {
                     @Override
                     public void call() {
