@@ -41,7 +41,7 @@ public class DoOperator extends BaseActivity {
      * etc. Note that this method is applied to observable and not on observer
      * */
     private Observable<Integer> doOnEachObserver() {
-        return Observable.just(1,2,3)
+        /*return Observable.just(1,2,3)
                 .doOnEach(new Action1<Notification<? super Integer>>() {
                     @Override
                     public void call(Notification<? super Integer> notification) {
@@ -72,19 +72,19 @@ public class DoOperator extends BaseActivity {
                     public void call() {
                         log("Work Completed, just relax ;p");
                     }
-                });
+                });*/
          //lambda version
-        /*return Observable.just(1, 2, 3)
+        return Observable.just(1, 2, 3)
                 .doOnEach(notification -> log("doOnEach send " + notification.getValue() + " type:" + notification.getKind()))
                 .doOnNext(aInteger -> log("doOnNext send " + aInteger))
                 .doOnSubscribe(() -> log("on subscribe"))
                 .doOnUnsubscribe(() -> log("on unsubscribe\n"))
-                .doOnCompleted(() -> log("onCompleted"));*/
+                .doOnCompleted(() -> log("onCompleted"));
 
     }
 
     private Observable<Integer> doOnErrorObserver() {
-        return createObserver().doOnEach(new Action1<Notification<? super Integer>>() {
+        /*return createObserver().doOnEach(new Action1<Notification<? super Integer>>() {
             @Override
             public void call(Notification<? super Integer> notification) {
 
@@ -96,9 +96,9 @@ public class DoOperator extends BaseActivity {
                         log("Error has occured");
                     }
                 })
-                /**same as finally do except that this occur before any log value present in observer's onCompleted
+                *//**same as finally do except that this occur before any log value present in observer's onCompleted
                  * or onError method is called
-                 */
+                 *//*
                 .doOnTerminate(new Action0() {
                     @Override
                     public void call() {
@@ -112,13 +112,13 @@ public class DoOperator extends BaseActivity {
                     public void call() {
                        log("finally do");
                     }
-                });
+                });*/
 
-        /*return createObserver()
+        return createObserver()
                 .doOnEach(notification -> log("doOnEach send " + notification.getValue() + " type:" + notification.getKind()))
                 .doOnError(throwable -> log("OnError:" + throwable.getMessage()))
                 .doOnTerminate(() -> log("OnTerminate"))
-                .finallyDo(() -> log("finallyDo"));*/
+                .finallyDo(() -> log("finallyDo"));
     }
 
     private Observable<Integer> createObserver() {
