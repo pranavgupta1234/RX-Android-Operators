@@ -16,10 +16,9 @@ public class FirstOperator extends BaseActivity {
         mRButton.setText(" Blocking");
         mRButton.setOnClickListener(e -> {
             /** Here as observable created by filter emits 0 ,1 , 2 .. each after gap of 500ms so it receives them but and onNext method
-             * of observer is called but it doesn't log the values because of the filter condition present and even after it has got the
-             * correct answer it doesn't print the result because method inside create has not been completed so if you increase
-             * the value inside for loop to 20 the result will be printed only after 10 sec i.e it is necessary for the method inside
-             * create to complete
+             * of observer is called but it doesn't log the values because of the doing too much work on main thread and skipping frames
+             * so if we subscribe it on a new thread then values will be logged properly and there is mo boundation that method inside onCreate
+             * should complete
              * */
 
             log("blocking:" + filterObserver().first(i -> i > 1));

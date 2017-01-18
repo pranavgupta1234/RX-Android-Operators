@@ -55,8 +55,6 @@ public class OperatorsForOnError extends BaseActivity {
         return createObserver().onErrorReturn(throwable -> "onErrorReturn");
     }
     /**
-     *
-     *
      * By default, when an Observable encounters an error that prevents it from emitting the expected item to its Observer,
      * the Observable invokes its Observer's onError method, and then quits without invoking any more of its Observer's methods.
      * The onErrorResumeNext method changes this behavior. If you pass another Observable (resumeSequence) to an Observable's
@@ -65,7 +63,7 @@ public class OperatorsForOnError extends BaseActivity {
      * able to do so. In such a case, because no Observable necessarily invokes onError, the Observer may never know that
      * an error happened.
      * so in this case values 1 ,2 will be passes and then 7,8,9 will be passes in onNext method of observer (it doesn't know that
-     * error has occured) and then onCompleted will be called
+     * error has occured and then onCompleted will be called
      * */
     private Observable<String> onErrorResumeNextObserver() {
         return createObserver().onErrorResumeNext(Observable.just("7", "8", "9"));

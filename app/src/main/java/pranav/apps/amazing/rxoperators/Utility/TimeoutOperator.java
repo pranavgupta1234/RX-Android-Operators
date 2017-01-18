@@ -66,8 +66,7 @@ public class TimeoutOperator extends BaseActivity {
      * THIS IS BECAUSE OF DOINF TOO MUCH WORK ON MAIN THREAD AND SKIPPING FRAMES
      * */
     private Observable<Integer> timeoutobserverObserver() {
-        return createObserver().timeout(200, TimeUnit.MILLISECONDS, Observable.just(5, 6)).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread());
+        return createObserver().timeout(200, TimeUnit.MILLISECONDS, Observable.just(5, 6));
     }
 
     private Observable<Integer> createObserver() {
